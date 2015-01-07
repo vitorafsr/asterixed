@@ -1,8 +1,8 @@
 '''
 EUROCONTROL ASTERIX encoder/decoder
 
-A library that encodes and decodes in the standard format specified in the
-document EUROCONTROL-SPEC-0149.
+A library that encodes and decodes in the EUROCONTROL ASTERIX format as
+specified in the document EUROCONTROL-SPEC-0149.
 Edition Number: 2.2
 Edition Date: 17/10/2014
 
@@ -40,7 +40,7 @@ from xml.dom import minidom
 import struct
 import traceback
 
-verbose = 1
+verbose = 0
 
 #TODO: check files against "config/asterix.dtd" structure
 filenames = \
@@ -119,6 +119,8 @@ def encode_category(cat, did, tree):
             di = int(di)
         rule = c.getAttribute('rule')
         if did.has_key(di):
+            if verbose >= 1:
+                print 'encoding dataitem',di
             l, v = encode_dataitem(did[di],c)
             mdi[di] = l, v
         else:
@@ -221,7 +223,7 @@ def encode_fixed(bd, tree):
             #TODO: consider 'encode' attr
             value += ((v & mask) << shift_left)
         else:
-            if key != 'FX' and verbose >= 1:
+            if key != 'FX' and verbose >= 2:
                 print 'field',key,'absent in input'
 
     if has_encoded == False:

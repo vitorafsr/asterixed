@@ -1,4 +1,9 @@
 {1:{10:{'SAC':1,'SIC':2},20:{'TYP':1,'SIM':1}}}
+
 {2:{70:[{'A':1,'ident':2,'counter':4},{'A':1,'ident':3,'counter':5}]}}
+
 {62:{10:{'SAC':255,'SIC':255},40:{'TrkN':0},70:{'ToT':0}, 80:{'MON':13,'SDS':2}}}
+
 {10:{270:{'Lenght':2}}}
+
+{8:{34:[{'StartR':3,'end_range':6, 'Azi':89},{'StartR':3,'end_range':6, 'Azi':89},{'StartR':3,'end_range':6, 'Azi':89}]}}
