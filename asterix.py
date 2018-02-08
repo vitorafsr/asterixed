@@ -129,7 +129,7 @@ def encode_category(cat, did, tree):
 
     datarecord = 0L
     n_octets_datarecord = 0
-    sorted_mdi_keys = sorted(mdi.keys())
+    sorted_mdi_keys = sorted_by_frn(mdi.keys(), tree)
     for di in sorted_mdi_keys:
         l, v = mdi[di]
         datarecord <<= l*8
@@ -399,7 +399,7 @@ def decode_record(stream):
     # decode dataitems
     results = {}
     length = 0
-    for di in sorted(dis):
+    for di in sorted_by_frn(dis, tree):
         if verbose >= 1:
             print 'decoding dataitem',di
         l, r = decode_datafield(stream, di, tree)
@@ -573,3 +573,10 @@ def tofile(x, filename):
         fp.close()
     except Exception, e:
         print str(e)
+
+
+def sorted_by_frn(items_list, xml_tree):
+    uap_items = xml_tree.getElementsByTagName('UAP')[0].getElementsByTagName('UAPItem')
+    item_to_frn = {i.firstChild.nodeValue: i.getAttribute('frn') for i in uap_items}
+    item_to_frn = {int(k): int(v) for k, v in item_to_frn.items() if k.isdigit() and v.isdigit()}
+    return sorted(items_list, key=lambda i: item_to_frn[i])
